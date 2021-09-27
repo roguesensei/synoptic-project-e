@@ -35,12 +35,12 @@ namespace SynopticProject_Project_E.Controllers
         }
 
         [HttpPost]
-        public JsonResult Register(User user)
+        public JsonResult Register(UserUploadModel user)
         {
             if (ModelState.IsValid)
             {
-                return UserDAL.CreateUser(user) ? 
-                    StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk) : 
+                return UserDAL.CreateUser(user) ?
+                    StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk) :
                     StatusResponseGenerator.Generate(HttpStatusResponse.HttpInternalServerError);
             }
 
