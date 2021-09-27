@@ -8,12 +8,11 @@ namespace SynopticProject_Project_E.DAL
 {
     public static class UserDAL
     {
-        // TODO: Move to config
-        private static readonly string connectionString = "mongodb://localhost";
         private static readonly string privateKey = "FCATERING";
 
         public static User GetUser(string cardId)
         {
+            string connectionString = ConfigurationHelper.GetAppSettings().ConnectionString;
             var client = new MongoClient(connectionString);
 
             var user = client.GetDatabase("first-catering")
@@ -41,6 +40,7 @@ namespace SynopticProject_Project_E.DAL
 
         public static bool CreateUser(UserUploadModel user)
         {
+            string connectionString = ConfigurationHelper.GetAppSettings().ConnectionString;
             var client = new MongoClient(connectionString);
             string cardId = user.CardId;
 
