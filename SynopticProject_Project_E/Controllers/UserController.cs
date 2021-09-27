@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SynopticProject_Project_E.DAL;
+using SynopticProject_Project_E.Extensions;
 using SynopticProject_Project_E.Helpers;
 using SynopticProject_Project_E.Models;
 
@@ -27,8 +28,22 @@ namespace SynopticProject_Project_E.Controllers
             return new JsonResult(user);
         }
 
+        // Temp - Debug method
+        [Route("token")]
+        public JsonResult GetUserToken(string cardId, string pin)
+        {
+            if (!UserDAL.IsValidUser(cardId, pin))
+            {
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "Invalid User");
+            }
+
+            string token = $"{cardId}:{pin}";
+
+            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, token.ToBase64());
+        }
+
         [HttpPost]
-        public JsonResult Register(UserUploadModel user)
+        public JsonResult Register([FromBody] UserUploadModel user)
         {
             if (ModelState.IsValid)
             {

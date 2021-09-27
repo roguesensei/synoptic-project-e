@@ -6,7 +6,6 @@ namespace SynopticProject_Project_E.Helpers
     public class AppSettings
     {
         public string ConnectionString { get; set; }
-
         public string DatabaseName { get; set; }
     }
 
@@ -19,8 +18,8 @@ namespace SynopticProject_Project_E.Helpers
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var section = config.GetSection(nameof(AppSettings));
-            var appSettings = section.Get<AppSettings>();
+            var appSettings = config.GetSection(nameof(AppSettings))
+                .Get<AppSettings>();
 
             return appSettings;
         }

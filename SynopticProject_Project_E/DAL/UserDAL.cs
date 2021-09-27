@@ -39,6 +39,13 @@ namespace SynopticProject_Project_E.DAL
             return user;
         }
 
+        public static bool IsValidUser(string cardId, string pin)
+        {
+            var user = GetUser(cardId);
+
+            return user != null && user.PIN == pin;
+        }
+
         public static bool CreateUser(UserUploadModel user)
         {
             var appSettings = ConfigurationHelper.GetAppSettings();

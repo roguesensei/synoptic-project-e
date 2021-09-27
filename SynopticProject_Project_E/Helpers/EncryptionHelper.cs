@@ -5,9 +5,16 @@ using System.Text;
 
 namespace SynopticProject_Project_E.Helpers
 {
-    // https://www.c-sharpcorner.com/article/how-to-encrypt-and-decrypt-in-c-sharp-using-simple-aes-keys/
+    // Credit https://www.c-sharpcorner.com/article/how-to-encrypt-and-decrypt-in-c-sharp-using-simple-aes-keys/
     public static class EncryptionHelper
     {
+        /// <summary>
+        /// Encrypt a given string
+        /// </summary>
+        /// <param name="input">String to encrypt</param>
+        /// <param name="publicKey">Public Key</param>
+        /// <param name="privateKey">Private Key</param>
+        /// <returns>Encrypted String</returns>
         public static string Encrypt(string input, string publicKey, string privateKey)
         {
             string output = "";
@@ -38,6 +45,13 @@ namespace SynopticProject_Project_E.Helpers
             }
         }
 
+        /// <summary>
+        /// Decrypt a given string
+        /// </summary>
+        /// <param name="input">String to decrypt</param>
+        /// <param name="publicKey">Public Key</param>
+        /// <param name="privateKey">Private Key</param>
+        /// <returns>Decrypted String</returns>
         public static string Decrypt(string input, string publicKey, string privateKey)
         {
             string output = "";
@@ -71,6 +85,11 @@ namespace SynopticProject_Project_E.Helpers
             }
         }
 
+        /// <summary>
+        /// Validate key to be 8 characters exactly
+        /// </summary>
+        /// <param name="key">Key to validate</param>
+        /// <returns>Valid key</returns>
         private static string ValidateKey(string key)
         {
             key = key.Replace(" ", "+");
