@@ -28,7 +28,7 @@ namespace SynopticProject_Project_E.Controllers
 
             if (user == null)
             {
-                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpNotFound, "User not found, please register");
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpNotFound, "User not found");
             }
 
             return new JsonResult(user);
