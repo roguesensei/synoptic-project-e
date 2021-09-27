@@ -8,15 +8,16 @@ namespace SynopticProject_Project_E.DAL
 {
     public static class UserDAL
     {
+        private static readonly string collectionName = "users";
         private static readonly string privateKey = "FCATERING";
 
         public static User GetUser(string cardId)
         {
-            string connectionString = ConfigurationHelper.GetAppSettings().ConnectionString;
-            var client = new MongoClient(connectionString);
+            var appSettings = ConfigurationHelper.GetAppSettings();
+            var client = new MongoClient(appSettings.ConnectionString);
 
-            var user = client.GetDatabase("first-catering")
-                 .GetCollection<User>("users")
+            var user = client.GetDatabase(appSettings.DatabaseName)
+                 .GetCollection<User>(collectionName)
                  .Find(x => x.CardId == EncryptionHelper.Encrypt(cardId, cardId, privateKey))
                  .FirstOrDefault();
 
@@ -40,14 +41,14 @@ namespace SynopticProject_Project_E.DAL
 
         public static bool CreateUser(UserUploadModel user)
         {
-            string connectionString = ConfigurationHelper.GetAppSettings().ConnectionString;
-            var client = new MongoClient(connectionString);
+            var appSettings = ConfigurationHelper.GetAppSettings();
+            var client = new MongoClient(appSettings.ConnectionString);
             string cardId = user.CardId;
 
             try
             {
-                client.GetDatabase("first-catering")
-                    .GetCollection<User>("users")
+                client.GetDatabase(appSettings.DatabaseName)
+                    .GetCollection<User>(collectionName)
                     .InsertOne(new User
                     {
                         CardId = EncryptionHelper.Encrypt(user.CardId, cardId, privateKey),

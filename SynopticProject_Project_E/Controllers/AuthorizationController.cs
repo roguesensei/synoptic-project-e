@@ -1,21 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SynopticProject_Project_E.DAL;
 using SynopticProject_Project_E.Helpers;
-using SynopticProject_Project_E.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SynopticProject_Project_E.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthorizationController : ControllerBase
+    public class AuthorizationController : BaseController
     {
-        private const int CARD_ID_LENGTH = 16;
-
         [HttpGet]
         public JsonResult Get(string cardId)
         {
