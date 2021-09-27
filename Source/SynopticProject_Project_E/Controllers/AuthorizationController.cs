@@ -6,7 +6,6 @@ using SynopticProject_Project_E.Helpers;
 namespace SynopticProject_Project_E.Controllers
 {
     [ApiController]
-    [BasicAuth]
     [Route("[controller]")]
     public class AuthorizationController : BaseController
     {

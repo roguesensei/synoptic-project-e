@@ -2,7 +2,7 @@
 Project created for L4 apprenticeship.
 ### Guide
 - `Documents/` contains the write-ups
-- `SynopticProject_Project_E/` contains the source code
+- `Source/` contains the source code
 
 #### Dependencies
 - [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) to run locally or in an Atlas

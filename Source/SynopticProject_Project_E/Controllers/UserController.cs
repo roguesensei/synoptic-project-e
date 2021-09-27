@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SynopticProject_Project_E.Authentication;
 using SynopticProject_Project_E.DAL;
 using SynopticProject_Project_E.Extensions;
 using SynopticProject_Project_E.Helpers;
@@ -7,6 +8,7 @@ using SynopticProject_Project_E.Models;
 namespace SynopticProject_Project_E.Controllers
 {
     [ApiController]
+    //[BasicAuth]
     [Route("[controller]")]
     public class UserController : BaseController
     {
