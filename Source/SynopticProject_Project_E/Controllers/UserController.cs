@@ -8,7 +8,7 @@ using SynopticProject_Project_E.Models;
 namespace SynopticProject_Project_E.Controllers
 {
     [ApiController]
-    //[BasicAuth]
+    [BasicAuth]
     [Route("[controller]")]
     public class UserController : BaseController
     {
@@ -18,6 +18,11 @@ namespace SynopticProject_Project_E.Controllers
             if (string.IsNullOrEmpty(cardId) || cardId.Length != CARD_ID_LENGTH)
             {
                 return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest);
+            }
+
+            if (CurrentUserHasPermission(cardId))
+            {
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden);
             }
 
             var user = UserDAL.GetUser(cardId);
@@ -31,30 +36,18 @@ namespace SynopticProject_Project_E.Controllers
         }
 
         // Temp - Debug method
-        [Route("token")]
-        public JsonResult GetUserToken(string cardId, string pin)
-        {
-            if (!UserDAL.IsValidUser(cardId, pin))
-            {
-                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "Invalid User");
-            }
+        //[Route("token")]
+        //public JsonResult GetUserToken(string cardId, string pin)
+        //{
+        //    if (!UserDAL.IsValidUser(cardId, pin))
+        //    {
+        //        return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "Invalid User");
+        //    }
 
-            string token = $"{cardId}:{pin}";
+        //    string token = $"{cardId}:{pin}";
 
-            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, token.ToBase64());
-        }
+        //    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, token.ToBase64());
+        //}
 
-        [HttpPost]
-        public JsonResult Register([FromBody] UserUploadModel user)
-        {
-            if (ModelState.IsValid)
-            {
-                return UserDAL.CreateUser(user) ?
-                    StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk) :
-                    StatusResponseGenerator.Generate(HttpStatusResponse.HttpInternalServerError);
-            }
-
-            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid User object");
-        }
-    }
+           }
 }

@@ -34,6 +34,7 @@ namespace SynopticProject_Project_E.Helpers
         HttpOk = 200,
         HttpBadRequest = 400,
         HttpUnauthorized = 401,
+        HttpForbidden = 403,
         HttpNotFound = 404,
         HttpInternalServerError = 500
     }

@@ -2,7 +2,7 @@
 
 namespace SynopticProject_Project_E.Models
 {
-    public class UserUploadModel
+    public class UserCredentialModel
     {
         [Required]
         [StringLength(16, MinimumLength = 16)]
@@ -11,7 +11,10 @@ namespace SynopticProject_Project_E.Models
         [Required]
         [StringLength(4, MinimumLength = 4)]
         public string PIN { get; set; }
+    }
 
+    public class UserUploadModel : UserCredentialModel
+    {
         [Required]
         public int EmployeeId { get; set; }
 

@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SynopticProject_Project_E.DAL;
+using SynopticProject_Project_E.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SynopticProject_Project_E.Authentication
 {
@@ -47,7 +45,7 @@ namespace SynopticProject_Project_E.Authentication
 
         private void SetUnauthorized(AuthorizationFilterContext context)
         {
-            context.Result = new UnauthorizedResult();
+            context.Result = StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "User unauthorized or not found. Please register.");
         }
     }
 }
