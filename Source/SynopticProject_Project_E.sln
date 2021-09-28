@@ -5,7 +5,10 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynopticProject_Project_E", "SynopticProject_Project_E\SynopticProject_Project_E.csproj", "{056E7B74-2CDE-4F40-9E47-906759D46A8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynopticProject_Project_E.Tests", "SynopticProject_Project_E.Tests\SynopticProject_Project_E.Tests.csproj", "{1CF2ADAB-F6BF-414F-A1F5-9760A87A2AB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynopticProject_Project_E.Tests", "SynopticProject_Project_E.Tests\SynopticProject_Project_E.Tests.csproj", "{1CF2ADAB-F6BF-414F-A1F5-9760A87A2AB7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{056E7B74-2CDE-4F40-9E47-906759D46A8F} = {056E7B74-2CDE-4F40-9E47-906759D46A8F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
