@@ -7,11 +7,19 @@ using System.Linq;
 
 namespace SynopticProject_Project_E.DAL
 {
+    /// <summary>
+    /// User Data Access Layer class
+    /// </summary>
     public static class UserDAL
     {
         private static readonly string collectionName = "users";
         private static readonly string privateKey = "FCATERING";
 
+        /// <summary>
+        /// Get a user by card ID
+        /// </summary>
+        /// <param name="cardId">Card ID</param>
+        /// <returns>User object</returns>
         public static User GetUser(string cardId)
         {
             var appSettings = ConfigurationHelper.GetAppSettings();
@@ -41,6 +49,10 @@ namespace SynopticProject_Project_E.DAL
             return user;
         }
 
+        /// <summary>
+        /// Get a list of the users
+        /// </summary>
+        /// <returns>List of encrypted users</returns>
         public static List<User> GetUsers()
         {
             var appSettings = ConfigurationHelper.GetAppSettings();
@@ -54,6 +66,12 @@ namespace SynopticProject_Project_E.DAL
             return users;
         }
 
+        /// <summary>
+        /// Check if a user is valid (i.e. exists)
+        /// </summary>
+        /// <param name="cardId">User Card ID</param>
+        /// <param name="pin">User PIN</param>
+        /// <returns>Valid or not</returns>
         public static bool IsValidUser(string cardId, string pin)
         {
             var user = GetUser(cardId);
@@ -61,6 +79,12 @@ namespace SynopticProject_Project_E.DAL
             return user != null && user.PIN == pin;
         }
 
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="user">User information</param>
+        /// <param name="isAdmin">Whether or not the user is an admin</param>
+        /// <returns>Success or failure</returns>
         public static bool CreateUser(UserUploadModel user, bool isAdmin = false)
         {
             var appSettings = ConfigurationHelper.GetAppSettings();

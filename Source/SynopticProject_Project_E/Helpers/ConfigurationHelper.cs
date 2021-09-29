@@ -25,6 +25,9 @@ namespace SynopticProject_Project_E.Helpers
         public UserUploadModel DefaultSuperUser { get; set; }
     }
 
+    /// <summary>
+    /// Configuration helper class
+    /// </summary>
     public static class ConfigurationHelper
     {
         /// <summary>

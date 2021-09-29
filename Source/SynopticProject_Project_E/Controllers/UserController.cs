@@ -8,11 +8,18 @@ using SynopticProject_Project_E.Models;
 
 namespace SynopticProject_Project_E.Controllers
 {
+    /// <summary>
+    /// User management controller
+    /// </summary>
     [ApiController]
-    [BasicAuth]
     [Route("[controller]")]
     public class UserController : BaseController
     {
+        /// <summary>
+        /// Get a user by Card ID
+        /// </summary>
+        /// <param name="cardId">Card ID</param>
+        /// <returns>User object or null</returns>
         [HttpGet]
         public JsonResult Get(string cardId)
         {
@@ -22,7 +29,7 @@ namespace SynopticProject_Project_E.Controllers
                 {
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest);
                 }
-                StatusCodes.Status419AuthenticationTimeout
+                
                 if (CurrentUserHasPermission(cardId))
                 {
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden);

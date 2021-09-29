@@ -2,6 +2,9 @@
 
 namespace SynopticProject_Project_E.Helpers
 {
+    /// <summary>
+    /// Class used to generate custom status responses
+    /// </summary>
     public static class StatusResponseGenerator
     {
         /// <summary>
@@ -31,11 +34,33 @@ namespace SynopticProject_Project_E.Helpers
     /// </summary>
     public enum HttpStatusResponse
     {
+        /// <summary>
+        /// HTTP 200 - OK
+        /// </summary>
         HttpOk = 200,
+        /// <summary>
+        /// HTTP 400 - Bad Request
+        /// </summary>
         HttpBadRequest = 400,
+        /// <summary>
+        /// HTTP 401 - Unauthorized
+        /// </summary>
         HttpUnauthorized = 401,
+        /// <summary>
+        /// HTTP 403 - Forbidden
+        /// </summary>
         HttpForbidden = 403,
+        /// <summary>
+        /// HTTP 404 - Not Found
+        /// </summary>
         HttpNotFound = 404,
+        /// <summary>
+        /// HTTP 419 - Authentication Timeout
+        /// </summary>
+        HttpAuthenticationTimeout = 419,
+        /// <summary>
+        /// Http 500 - Internal Server Error
+        /// </summary>
         HttpInternalServerError = 500
     }
 }

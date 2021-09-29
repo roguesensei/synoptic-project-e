@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SynopticProject_Project_E</name>
+    </assembly>
+    <members>
+        <member name="T:SynopticProject_Project_E.Authentication.BasicAuthAttribute">
+            <summary>
+            Attribute to require Basic Authorization
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Authentication.BasicAuthAttribute.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called when a user attempts to authorize, validates the authorization header
+            </summary>
+            <param name="context">Authorization context</param>
+        </member>
+        <member name="M:SynopticProject_Project_E.Authentication.BasicAuthAttribute.IsAuthorized(System.String,System.String)">
+            <summary>
+            Checks if a user's credentials are vaild
+            </summary>
+            <param name="cardId">User's card ID</param>
+            <param name="pin">User's PIN</param>
+            <returns>Authorized or not</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Authentication.BasicAuthAttribute.SetUnauthorized(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Sets the context result to be an unauthorized result
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:SynopticProject_Project_E.Controllers.AuthorizationController">
+            <summary>
+            Authorization Controller
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Login(SynopticProject_Project_E.Models.UserCredentialModel)">
+            <summary>
+            /Authenticate/Login/ endpoint
+            </summary>
+            <param name="model">User credentials</param>
+            <returns>Response from server</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Register(SynopticProject_Project_E.Models.UserUploadModel)">
+            <summary>
+            /Authenticate/Register/ endpoint
+            </summary>
+            <param name="user">User details</param>
+            <returns>Response from server</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Controllers.BaseController">
+            <summary>
+            Base controller to implement common methods
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Controllers.BaseController.CARD_ID_LENGTH">
+            <summary>
+            Constant defining the length of a card ID
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.GetCurrentUser">
+            <summary>
+            Returns an instance of the current user
+            </summary>
+            <returns>Current user</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.CurrentUserHasPermission(System.String)">
+            <summary>
+            Check if the user has permissions to peform an action
+            </summary>
+            <param name="cardId">User's card ID</param>
+            <returns>Permission access/deny</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.UserAuthenticated(SynopticProject_Project_E.Models.User)">
+            <summary>
+            Check if a user is authenticated
+            </summary>
+            <param name="user">User to check if authenticated</param>
+            <returns>Authenticated or not</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.AuthenticateUser(SynopticProject_Project_E.Models.User)">
+            <summary>
+            Authenticate the user
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.UserSessionExpired(SynopticProject_Project_E.Models.User)">
+            <summary>
+            Check if a user's session has expired
+            </summary>
+            <param name="user">User to check</param>
+            <returns>Expired or not</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Controllers.UserController">
+            <summary>
+            User management controller
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.UserController.Get(System.String)">
+            <summary>
+            Get a user by Card ID
+            </summary>
+            <param name="cardId">Card ID</param>
+            <returns>User object or null</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.DAL.UserDAL">
+            <summary>
+            User Data Access Layer class
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.DAL.UserDAL.GetUser(System.String)">
+            <summary>
+            Get a user by card ID
+            </summary>
+            <param name="cardId">Card ID</param>
+            <returns>User object</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.DAL.UserDAL.GetUsers">
+            <summary>
+            Get a list of the users
+            </summary>
+            <returns>List of encrypted users</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.DAL.UserDAL.IsValidUser(System.String,System.String)">
+            <summary>
+            Check if a user is valid (i.e. exists)
+            </summary>
+            <param name="cardId">User Card ID</param>
+            <param name="pin">User PIN</param>
+            <returns>Valid or not</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.DAL.UserDAL.CreateUser(SynopticProject_Project_E.Models.UserUploadModel,System.Boolean)">
+            <summary>
+            Create a user
+            </summary>
+            <param name="user">User information</param>
+            <param name="isAdmin">Whether or not the user is an admin</param>
+            <returns>Success or failure</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Extensions.StringExtensions">
+            <summary>
+            Class of string extensions
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Extensions.StringExtensions.ToBase64(System.String)">
+            <summary>
+            Converts a string to Base64
+            </summary>
+            <param name="source">The string source</param>
+            <returns>Base64 string</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Helpers.AppSettings">
+            <summary>
+            AppSettings Object retreived from appsettings.json
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Helpers.AppSettings.ConnectionString">
+            <summary>
+            MongoDB Connection String
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Helpers.AppSettings.DatabaseName">
+            <summary>
+            Name of the Database to read/write collections from/to
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Helpers.AppSettings.DefaultSuperUser">
+            <summary>
+            The default super user object, created if no admin exists
+            </summary>
+        </member>
+        <member name="T:SynopticProject_Project_E.Helpers.ConfigurationHelper">
+            <summary>
+            Configuration helper class
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Helpers.ConfigurationHelper.GetAppSettings">
+            <summary>
+            Gets AppSettings object from appsettings.json
+            </summary>
+            <returns>AppSettings Object</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Helpers.EncryptionHelper">
+            <summary>
+            Encryption helper class
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Helpers.EncryptionHelper.Encrypt(System.String,System.String,System.String)">
+            <summary>
+            Encrypt a given string
+            </summary>
+            <param name="input">String to encrypt</param>
+            <param name="publicKey">Public Key</param>
+            <param name="privateKey">Private Key</param>
+            <returns>Encrypted String</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Helpers.EncryptionHelper.Decrypt(System.String,System.String,System.String)">
+            <summary>
+            Decrypt a given string
+            </summary>
+            <param name="input">String to decrypt</param>
+            <param name="publicKey">Public Key</param>
+            <param name="privateKey">Private Key</param>
+            <returns>Decrypted String</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Helpers.EncryptionHelper.ValidateKey(System.String)">
+            <summary>
+            Validate key to be 8 characters exactly
+            </summary>
+            <param name="key">Key to validate</param>
+            <returns>Valid key</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Helpers.StatusResponseGenerator">
+            <summary>
+            Class used to generate custom status responses
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Helpers.StatusResponseGenerator.Generate(SynopticProject_Project_E.Helpers.HttpStatusResponse,System.String)">
+            <summary>
+            Method used to generate custom status server responses
+            </summary>
+            <param name="statusCode">HTTP Status Code</param>
+            <param name="message">Optional Message to return to the user</param>
+            <returns>Json Response to be sent back to the client</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Helpers.HttpStatusResponse">
+            <summary>
+            Common Http Status Codes used in app
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpOk">
+            <summary>
+            HTTP 200 - OK
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpBadRequest">
+            <summary>
+            HTTP 400 - Bad Request
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpUnauthorized">
+            <summary>
+            HTTP 401 - Unauthorized
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpForbidden">
+            <summary>
+            HTTP 403 - Forbidden
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpNotFound">
+            <summary>
+            HTTP 404 - Not Found
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpAuthenticationTimeout">
+            <summary>
+            HTTP 419 - Authentication Timeout
+            </summary>
+        </member>
+        <member name="F:SynopticProject_Project_E.Helpers.HttpStatusResponse.HttpInternalServerError">
+            <summary>
+            Http 500 - Internal Server Error
+            </summary>
+        </member>
+        <member name="T:SynopticProject_Project_E.Models.UserCredentialModel">
+            <summary>
+            User credentials model
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserCredentialModel.CardId">
+            <summary>
+            User's Card ID
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserCredentialModel.PIN">
+            <summary>
+            User's PIN
+            </summary>
+        </member>
+        <member name="T:SynopticProject_Project_E.Models.UserUploadModel">
+            <summary>
+            User upload model
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserUploadModel.EmployeeId">
+            <summary>
+            User's Employee ID
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserUploadModel.FirstName">
+            <summary>
+            User's first name
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserUploadModel.Surname">
+            <summary>
+            User's surname
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserUploadModel.EmailAddress">
+            <summary>
+            User's email address
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.UserUploadModel.MobileNumber">
+            <summary>
+            User's mobile number
+            </summary>
+        </member>
+        <member name="T:SynopticProject_Project_E.Models.User">
+            <summary>
+            User database object
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.User._id">
+            <summary>
+            MongoDB ID
+            </summary>
+        </member>
+        <member name="P:SynopticProject_Project_E.Models.User.IsAdmin">
+            <summary>
+            Is user admin
+            </summary>
+        </member>
+        <member name="T:SynopticProject_Project_E.Program">
+            <summary>
+            Class housing entry point
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Program.Main(System.String[])">
+            <summary>
+            Standard entry point
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:SynopticProject_Project_E.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Create Host builder
+            </summary>
+            <param name="args">args from Main()</param>
+            <returns>Default Host Builder</returns>
+        </member>
+        <member name="T:SynopticProject_Project_E.Startup">
+            <summary>
+            API Startup Class
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup constructor
+            </summary>
+            <param name="configuration">Configuration</param>
+        </member>
+        <member name="P:SynopticProject_Project_E.Startup.Configuration">
+            <summary>
+            Startup Configuration
+            </summary>
+        </member>
+        <member name="M:SynopticProject_Project_E.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">Services</param>
+        </member>
+        <member name="M:SynopticProject_Project_E.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">App builder</param>
+            <param name="env">Host environment</param>
+        </member>
+    </members>
+</doc>

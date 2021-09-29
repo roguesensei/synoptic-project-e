@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using SynopticProject_Project_E.DAL;
 using SynopticProject_Project_E.Helpers;
 using System;
@@ -9,8 +8,15 @@ using System.Text;
 
 namespace SynopticProject_Project_E.Authentication
 {
+    /// <summary>
+    /// Attribute to require Basic Authorization
+    /// </summary>
     public class BasicAuthAttribute : Attribute, IAuthorizationFilter
     {
+        /// <summary>
+        /// Called when a user attempts to authorize, validates the authorization header
+        /// </summary>
+        /// <param name="context">Authorization context</param>
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             try
@@ -38,11 +44,21 @@ namespace SynopticProject_Project_E.Authentication
             }
         }
 
-        public bool IsAuthorized(string cardId, string pin)
+        /// <summary>
+        /// Checks if a user's credentials are vaild
+        /// </summary>
+        /// <param name="cardId">User's card ID</param>
+        /// <param name="pin">User's PIN</param>
+        /// <returns>Authorized or not</returns>
+        private bool IsAuthorized(string cardId, string pin)
         {
             return UserDAL.IsValidUser(cardId, pin);
         }
 
+        /// <summary>
+        /// Sets the context result to be an unauthorized result
+        /// </summary>
+        /// <param name="context"></param>
         private void SetUnauthorized(AuthorizationFilterContext context)
         {
             context.Result = StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "User unauthorized or not found. Please register.");

@@ -3,6 +3,9 @@ using System.Text;
 
 namespace SynopticProject_Project_E.Extensions
 {
+    /// <summary>
+    /// Class of string extensions
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>

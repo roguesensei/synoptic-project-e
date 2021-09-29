@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SynopticProject_Project_E.Authentication;
 using SynopticProject_Project_E.DAL;
 using SynopticProject_Project_E.Models;
 using System;
@@ -9,12 +10,23 @@ using System.Text;
 
 namespace SynopticProject_Project_E.Controllers
 {
+    /// <summary>
+    /// Base controller to implement common methods
+    /// </summary>
     [ApiController]
+    [BasicAuth]
     public abstract class BaseController : ControllerBase
     {
+        /// <summary>
+        /// Constant defining the length of a card ID
+        /// </summary>
         protected const int CARD_ID_LENGTH = 16;
         private Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
 
+        /// <summary>
+        /// Returns an instance of the current user
+        /// </summary>
+        /// <returns>Current user</returns>
         public User GetCurrentUser()
         {
             var authHeader = HttpContext.Request.Headers["Authorization"];
@@ -29,6 +41,11 @@ namespace SynopticProject_Project_E.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Check if the user has permissions to peform an action
+        /// </summary>
+        /// <param name="cardId">User's card ID</param>
+        /// <returns>Permission access/deny</returns>
         public bool CurrentUserHasPermission(string cardId)
         {
             var user = GetCurrentUser();
@@ -39,19 +56,41 @@ namespace SynopticProject_Project_E.Controllers
             return user.CardId == cardId || user.IsAdmin;
         }
 
+        /// <summary>
+        /// Check if a user is authenticated
+        /// </summary>
+        /// <param name="user">User to check if authenticated</param>
+        /// <returns>Authenticated or not</returns>
         public bool UserAuthenticated(User user)
         {
             return user != null && authenticatedUsers.ContainsKey(user.CardId);
         }
 
+        /// <summary>
+        /// Authenticate the user
+        /// </summary>
+        /// <param name="user"></param>
         public void AuthenticateUser(User user)
         {
             if (!UserAuthenticated(user))
             {
                 authenticatedUsers.Add(user.CardId, new UserSession(user));
             }
+            else
+            {
+                var authUser = authenticatedUsers[user.CardId];
+                authUser.sessionTimeStampUTC = DateTime.UtcNow;
+
+                // Update entry
+                authenticatedUsers[user.CardId] = authUser;
+            }
         }
 
+        /// <summary>
+        /// Check if a user's session has expired
+        /// </summary>
+        /// <param name="user">User to check</param>
+        /// <returns>Expired or not</returns>
         public bool UserSessionExpired(User user)
         {
             string cardId = user.CardId;
@@ -62,6 +101,13 @@ namespace SynopticProject_Project_E.Controllers
                 authenticatedUsers.Remove(cardId);
                 return true;
             }
+
+            var authUser = authenticatedUsers[cardId];
+            authUser.sessionTimeStampUTC = DateTime.UtcNow;
+
+            // Update entry
+            authenticatedUsers[cardId] = authUser;
+
             return false;
         }
 

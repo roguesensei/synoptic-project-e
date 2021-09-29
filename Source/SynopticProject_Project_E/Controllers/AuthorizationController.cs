@@ -5,10 +5,18 @@ using SynopticProject_Project_E.Models;
 
 namespace SynopticProject_Project_E.Controllers
 {
+    /// <summary>
+    /// Authorization Controller
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class AuthorizationController : BaseController
     {
+        /// <summary>
+        /// /Authenticate/Login/ endpoint
+        /// </summary>
+        /// <param name="model">User credentials</param>
+        /// <returns>Response from server</returns>
         [HttpPost]
         public JsonResult Login([FromBody] UserCredentialModel model)
         {
@@ -31,6 +39,11 @@ namespace SynopticProject_Project_E.Controllers
             return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid Credentials, please enter a valid PIN or register");
         }
 
+        /// <summary>
+        /// /Authenticate/Register/ endpoint
+        /// </summary>
+        /// <param name="user">User details</param>
+        /// <returns>Response from server</returns>
         [HttpPost]
         public JsonResult Register([FromBody] UserUploadModel user)
         {

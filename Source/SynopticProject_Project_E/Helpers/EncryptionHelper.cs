@@ -6,6 +6,9 @@ using System.Text;
 namespace SynopticProject_Project_E.Helpers
 {
     // Credit https://www.c-sharpcorner.com/article/how-to-encrypt-and-decrypt-in-c-sharp-using-simple-aes-keys/
+    /// <summary>
+    /// Encryption helper class
+    /// </summary>
     public static class EncryptionHelper
     {
         /// <summary>
