@@ -37,7 +37,7 @@ namespace SynopticProject_Project_E.Controllers
             if (ModelState.IsValid)
             {
                 var existingUser = UserDAL.GetUser(user.CardId);
-                if (user != null)
+                if (existingUser != null)
                 {
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "User already exists on card. Please use a different card or contact your administrator");
                 }

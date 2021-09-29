@@ -13,7 +13,7 @@ namespace SynopticProject_Project_E.Controllers
     public abstract class BaseController : ControllerBase
     {
         protected const int CARD_ID_LENGTH = 16;
-        private Dictionary<string, User> authenticatedUsers = new Dictionary<string, User>();
+        private Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
 
         public User GetCurrentUser()
         {
@@ -48,7 +48,32 @@ namespace SynopticProject_Project_E.Controllers
         {
             if (!UserAuthenticated(user))
             {
-                authenticatedUsers.Add(user.CardId, user);
+                authenticatedUsers.Add(user.CardId, new UserSession(user));
+            }
+        }
+
+        public bool UserSessionExpired(User user)
+        {
+            string cardId = user.CardId;
+
+            if (authenticatedUsers[cardId].sessionTimeStampUTC.AddMinutes(5) >= DateTime.UtcNow)
+            {
+                // Session expired
+                authenticatedUsers.Remove(cardId);
+                return true;
+            }
+            return false;
+        }
+
+        private struct UserSession
+        {
+            public User user;
+            public DateTime sessionTimeStampUTC;
+
+            public UserSession(User user)
+            {
+                this.user = user;
+                sessionTimeStampUTC = DateTime.UtcNow;
             }
         }
     }
