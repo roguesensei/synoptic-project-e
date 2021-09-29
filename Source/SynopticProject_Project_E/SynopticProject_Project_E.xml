@@ -48,6 +48,12 @@
             <param name="user">User details</param>
             <returns>Response from server</returns>
         </member>
+        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Logout">
+            <summary>
+            /Authenticate/Logout endpoint
+            </summary>
+            <returns>Response from the server</returns>
+        </member>
         <member name="T:SynopticProject_Project_E.Controllers.BaseController">
             <summary>
             Base controller to implement common methods
@@ -90,6 +96,12 @@
             </summary>
             <param name="user">User to check</param>
             <returns>Expired or not</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.UnauthenticateUser(System.String)">
+            <summary>
+            Unauthenticate a user
+            </summary>
+            <param name="cardId">User's Card ID</param>
         </member>
         <member name="T:SynopticProject_Project_E.Controllers.UserController">
             <summary>
