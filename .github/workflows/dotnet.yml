@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set Working directory
-      run: cd Solution/
+      run: cd Source/
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
