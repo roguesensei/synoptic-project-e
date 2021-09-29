@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SynopticProject_Project_E.DAL;
+using SynopticProject_Project_E.Helpers;
+using SynopticProject_Project_E.Models;
+using System;
+using System.Linq;
 
 namespace SynopticProject_Project_E
 {
@@ -39,6 +44,19 @@ namespace SynopticProject_Project_E
             {
                 endpoints.MapControllers();
             });
+
+            // Verify at least one admin exists
+            if (!UserDAL.GetUsers().Any(x => x.IsAdmin))
+            {
+                // Create default super user
+                UserUploadModel defaultSuperUser = ConfigurationHelper.GetAppSettings()?.DefaultSuperUser;
+                if (defaultSuperUser == null)
+                {
+                    throw new Exception("Could not find a DefaultSuperUser in the appsettins.json");
+                }
+
+                UserDAL.CreateUser(defaultSuperUser, true);
+            }
         }
     }
 }

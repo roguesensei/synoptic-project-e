@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SynopticProject_Project_E.Models;
 using System;
 
 namespace SynopticProject_Project_E.Helpers
@@ -7,6 +8,7 @@ namespace SynopticProject_Project_E.Helpers
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public UserUploadModel DefaultSuperUser { get; set; }
     }
 
     public static class ConfigurationHelper

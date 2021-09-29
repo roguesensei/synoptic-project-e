@@ -2,6 +2,7 @@
 using SynopticProject_Project_E.Helpers;
 using SynopticProject_Project_E.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SynopticProject_Project_E.DAL
@@ -23,6 +24,7 @@ namespace SynopticProject_Project_E.DAL
 
             if (user != null)
             {
+                // Decrypt information
                 user = new User
                 {
                     CardId = EncryptionHelper.Decrypt(user.CardId, cardId, privateKey),
@@ -39,6 +41,19 @@ namespace SynopticProject_Project_E.DAL
             return user;
         }
 
+        public static List<User> GetUsers()
+        {
+            var appSettings = ConfigurationHelper.GetAppSettings();
+            var client = new MongoClient(appSettings.ConnectionString);
+
+            var users = client.GetDatabase(appSettings.DatabaseName)
+                 .GetCollection<User>(collectionName)
+                 .AsQueryable()
+                 .ToList();
+
+            return users;
+        }
+
         public static bool IsValidUser(string cardId, string pin)
         {
             var user = GetUser(cardId);
@@ -46,7 +61,7 @@ namespace SynopticProject_Project_E.DAL
             return user != null && user.PIN == pin;
         }
 
-        public static bool CreateUser(UserUploadModel user)
+        public static bool CreateUser(UserUploadModel user, bool isAdmin = false)
         {
             var appSettings = ConfigurationHelper.GetAppSettings();
             var client = new MongoClient(appSettings.ConnectionString);
@@ -65,7 +80,7 @@ namespace SynopticProject_Project_E.DAL
                         Surname = EncryptionHelper.Encrypt(user.Surname, cardId, privateKey),
                         EmailAddress = EncryptionHelper.Encrypt(user.EmailAddress, cardId, privateKey),
                         MobileNumber = EncryptionHelper.Encrypt(user.MobileNumber, cardId, privateKey),
-                        IsAdmin = false
+                        IsAdmin = isAdmin
                     });
             }
             catch (Exception exc)
