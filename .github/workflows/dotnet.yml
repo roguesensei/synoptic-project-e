@@ -1,8 +1,7 @@
 name: .NET
 
 env:
-  dir: 'Source'
-  sln: 'SynopticProject_Project_E.sln'
+  sln: 'Source/SynopticProject_Project_E.sln'
 
 on:
   push:
@@ -12,8 +11,6 @@ on:
 
 jobs:
   build:
-    env:
-      working-directory: ${{env.dir}}
     runs-on: ubuntu-latest
 
     steps:
