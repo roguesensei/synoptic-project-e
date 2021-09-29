@@ -111,6 +111,15 @@ namespace SynopticProject_Project_E.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Unauthenticate a user
+        /// </summary>
+        /// <param name="cardId">User's Card ID</param>
+        public void UnauthenticateUser(string cardId)
+        {
+            authenticatedUsers.Remove(cardId);
+        }
+
         private struct UserSession
         {
             public User user;

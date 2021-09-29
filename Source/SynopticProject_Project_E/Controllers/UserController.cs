@@ -25,11 +25,16 @@ namespace SynopticProject_Project_E.Controllers
         {
             if (UserAuthenticated(GetCurrentUser()))
             {
+                if (UserSessionExpired(GetCurrentUser()))
+                {
+                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpAuthenticationTimeout, "Sessions has expired, please log in");
+                }
+
                 if (string.IsNullOrEmpty(cardId) || cardId.Length != CARD_ID_LENGTH)
                 {
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest);
                 }
-                
+
                 if (CurrentUserHasPermission(cardId))
                 {
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden);

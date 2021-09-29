@@ -62,5 +62,21 @@ namespace SynopticProject_Project_E.Controllers
 
             return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid User object");
         }
+   
+        /// <summary>
+        /// /Authenticate/Logout endpoint
+        /// </summary>
+        /// <returns>Response from the server</returns>
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            if (UserAuthenticated(GetCurrentUser()))
+            {
+                UnauthenticateUser(GetCurrentUser().CardId);
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, "Goodbye");
+            }
+
+            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, "You are already logged out");
+        }
     }
 }
