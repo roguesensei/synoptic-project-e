@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SynopticProject_Project_E.Models
 {
@@ -70,6 +71,7 @@ namespace SynopticProject_Project_E.Models
         /// <summary>
         /// MongoDB ID
         /// </summary>
+        [Key]
         public object _id { get; set; }
 
         /// <summary>
