@@ -70,7 +70,7 @@ namespace SynopticProject_Project_E.Models
         /// <summary>
         /// MongoDB ID
         /// </summary>
-        public int _id { get; set; }
+        public object _id { get; set; }
 
         /// <summary>
         /// Is user admin

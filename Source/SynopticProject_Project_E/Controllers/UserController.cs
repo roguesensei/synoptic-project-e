@@ -35,9 +35,9 @@ namespace SynopticProject_Project_E.Controllers
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest);
                 }
 
-                if (CurrentUserHasPermission(cardId))
+                if (!CurrentUserHasPermission(cardId))
                 {
-                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden);
+                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden, "You do not have permission to view this resource");
                 }
 
                 var user = UserDAL.GetUser(cardId);

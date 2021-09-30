@@ -29,26 +29,26 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="T:SynopticProject_Project_E.Controllers.AuthorizationController">
+        <member name="T:SynopticProject_Project_E.Controllers.AuthenticateController">
             <summary>
             Authorization Controller
             </summary>
         </member>
-        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Login(SynopticProject_Project_E.Models.UserCredentialModel)">
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Login(SynopticProject_Project_E.Models.UserCredentialModel)">
             <summary>
             /Authenticate/Login/ endpoint
             </summary>
             <param name="model">User credentials</param>
             <returns>Response from server</returns>
         </member>
-        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Register(SynopticProject_Project_E.Models.UserUploadModel)">
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Register(SynopticProject_Project_E.Models.UserUploadModel)">
             <summary>
             /Authenticate/Register/ endpoint
             </summary>
             <param name="user">User details</param>
             <returns>Response from server</returns>
         </member>
-        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Logout">
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Logout">
             <summary>
             /Authenticate/Logout endpoint
             </summary>

@@ -10,7 +10,7 @@ namespace SynopticProject_Project_E.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class AuthorizationController : BaseController
+    public class AuthenticateController : BaseController
     {
         /// <summary>
         /// /Authenticate/Login/ endpoint
@@ -18,8 +18,10 @@ namespace SynopticProject_Project_E.Controllers
         /// <param name="model">User credentials</param>
         /// <returns>Response from server</returns>
         [HttpPost]
+        [Route("login")]
         public JsonResult Login([FromBody] UserCredentialModel model)
         {
+            string errorMessage = "Invalid Credentials, please enter a valid PIN or register";
             if (ModelState.IsValid)
             {
                 var user = GetCurrentUser();
@@ -28,15 +30,20 @@ namespace SynopticProject_Project_E.Controllers
                     return StatusResponseGenerator.Generate(HttpStatusResponse.HttpNotFound, "User not found, please register");
                 }
 
-                if (UserAuthenticated(user))
+                string welcomeMessage = $"Welcome back, {user.FirstName}";
+                if (user.CardId == model.CardId && user.PIN == model.PIN)
                 {
-                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, $"Welcome back {user.FirstName}");
-                }
+                    if (UserAuthenticated(user))
+                    {
+                        return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, welcomeMessage);
+                    }
 
-                AuthenticateUser(user);
-                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, $"Welcome {user.FirstName}");
+                    AuthenticateUser(user);
+                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, welcomeMessage);
+                }
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, errorMessage);
             }
-            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid Credentials, please enter a valid PIN or register");
+            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, errorMessage);
         }
 
         /// <summary>
@@ -45,6 +52,7 @@ namespace SynopticProject_Project_E.Controllers
         /// <param name="user">User details</param>
         /// <returns>Response from server</returns>
         [HttpPost]
+        [Route("register")]
         public JsonResult Register([FromBody] UserUploadModel user)
         {
             if (ModelState.IsValid)
@@ -62,12 +70,13 @@ namespace SynopticProject_Project_E.Controllers
 
             return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid User object");
         }
-   
+
         /// <summary>
         /// /Authenticate/Logout endpoint
         /// </summary>
         /// <returns>Response from the server</returns>
         [HttpPost]
+        [Route("logout")]
         public JsonResult Logout()
         {
             if (UserAuthenticated(GetCurrentUser()))

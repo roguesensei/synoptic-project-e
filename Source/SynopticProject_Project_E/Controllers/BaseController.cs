@@ -21,7 +21,7 @@ namespace SynopticProject_Project_E.Controllers
         /// Constant defining the length of a card ID
         /// </summary>
         protected const int CARD_ID_LENGTH = 16;
-        private Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
+        private static Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
 
         /// <summary>
         /// Returns an instance of the current user
@@ -95,7 +95,7 @@ namespace SynopticProject_Project_E.Controllers
         {
             string cardId = user.CardId;
 
-            if (authenticatedUsers[cardId].sessionTimeStampUTC.AddMinutes(5) >= DateTime.UtcNow)
+            if (authenticatedUsers[cardId].sessionTimeStampUTC.AddMinutes(5) <= DateTime.UtcNow)
             {
                 // Session expired
                 authenticatedUsers.Remove(cardId);
