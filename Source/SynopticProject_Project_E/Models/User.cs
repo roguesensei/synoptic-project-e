@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SynopticProject_Project_E.Models
@@ -78,5 +79,10 @@ namespace SynopticProject_Project_E.Models
         /// Is user admin
         /// </summary>
         public bool IsAdmin { get; set; }
+
+        internal bool Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

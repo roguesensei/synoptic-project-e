@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SynopticProject_Project_E.Authentication;
 using SynopticProject_Project_E.DAL;
-using SynopticProject_Project_E.Extensions;
 using SynopticProject_Project_E.Helpers;
 using SynopticProject_Project_E.Models;
 
@@ -17,7 +15,7 @@ namespace SynopticProject_Project_E.Controllers
     public class UserController : BaseController
     {
         /// <summary>
-        /// Get a user by Card ID
+        /// /User/ endpoint
         /// </summary>
         /// <param name="cardId">Card ID</param>
         /// <returns>User object or null</returns>
@@ -49,6 +47,40 @@ namespace SynopticProject_Project_E.Controllers
                 }
 
                 return new JsonResult(user);
+            }
+
+            return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "Please Log in");
+        }
+
+        /// <summary>
+        /// /User/CreateAdmin
+        /// </summary>
+        /// <param name="model">Admin details</param>
+        /// <returns>Response from the server</returns>
+        [HttpPost]
+        [Route("CreateAdmin")]
+        public JsonResult CreateAdminUser([FromBody] UserUploadModel model)
+        {
+            if (UserAuthenticated(GetCurrentUser()))
+            {
+                if (UserSessionExpired(GetCurrentUser()))
+                {
+                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpAuthenticationTimeout, "Sessions has expired, please log in");
+                }
+
+                if (GetCurrentUser().IsAdmin)
+                {
+                    if (UserDAL.GetUser(model.CardId) != null)
+                    {
+                        return UserDAL.CreateUser(model, true) ?
+                            StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk) :
+                            StatusResponseGenerator.Generate(HttpStatusResponse.HttpInternalServerError);
+                    }
+
+                    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "A user with the specified Card ID already exists");
+                }
+
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpForbidden, "You need to be an administrator to do that");
             }
 
             return StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "Please Log in");
