@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SynopticProject_Project_E.Authentication;
 using SynopticProject_Project_E.DAL;
 using SynopticProject_Project_E.Helpers;
 using SynopticProject_Project_E.Models;
@@ -17,6 +19,7 @@ namespace SynopticProject_Project_E.Controllers
         /// </summary>
         /// <param name="model">User credentials</param>
         /// <returns>Response from server</returns>
+        [BasicAuth]
         [HttpPost]
         [Route("login")]
         public JsonResult Login([FromBody] UserCredentialModel model)
@@ -75,6 +78,7 @@ namespace SynopticProject_Project_E.Controllers
         /// /Authenticate/Logout endpoint
         /// </summary>
         /// <returns>Response from the server</returns>
+        [BasicAuth]
         [HttpPost]
         [Route("logout")]
         public JsonResult Logout()

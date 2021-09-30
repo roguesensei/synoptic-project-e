@@ -14,7 +14,6 @@ namespace SynopticProject_Project_E.Controllers
     /// Base controller to implement common methods
     /// </summary>
     [ApiController]
-    [BasicAuth]
     public abstract class BaseController : ControllerBase
     {
         /// <summary>

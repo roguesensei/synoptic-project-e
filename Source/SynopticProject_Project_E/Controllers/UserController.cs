@@ -12,6 +12,7 @@ namespace SynopticProject_Project_E.Controllers
     /// User management controller
     /// </summary>
     [ApiController]
+    [BasicAuth]
     [Route("[controller]")]
     public class UserController : BaseController
     {
