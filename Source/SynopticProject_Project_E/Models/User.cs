@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SynopticProject_Project_E.Models
 {
@@ -70,11 +72,17 @@ namespace SynopticProject_Project_E.Models
         /// <summary>
         /// MongoDB ID
         /// </summary>
-        public int _id { get; set; }
+        [Key]
+        public object _id { get; set; }
 
         /// <summary>
         /// Is user admin
         /// </summary>
         public bool IsAdmin { get; set; }
+
+        internal bool Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

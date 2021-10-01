@@ -14,14 +14,13 @@ namespace SynopticProject_Project_E.Controllers
     /// Base controller to implement common methods
     /// </summary>
     [ApiController]
-    [BasicAuth]
     public abstract class BaseController : ControllerBase
     {
         /// <summary>
         /// Constant defining the length of a card ID
         /// </summary>
         protected const int CARD_ID_LENGTH = 16;
-        private Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
+        private static Dictionary<string, UserSession> authenticatedUsers = new Dictionary<string, UserSession>();
 
         /// <summary>
         /// Returns an instance of the current user
@@ -95,7 +94,7 @@ namespace SynopticProject_Project_E.Controllers
         {
             string cardId = user.CardId;
 
-            if (authenticatedUsers[cardId].sessionTimeStampUTC.AddMinutes(5) >= DateTime.UtcNow)
+            if (authenticatedUsers[cardId].sessionTimeStampUTC.AddMinutes(5) <= DateTime.UtcNow)
             {
                 // Session expired
                 authenticatedUsers.Remove(cardId);
@@ -109,6 +108,15 @@ namespace SynopticProject_Project_E.Controllers
             authenticatedUsers[cardId] = authUser;
 
             return false;
+        }
+
+        /// <summary>
+        /// Unauthenticate a user
+        /// </summary>
+        /// <param name="cardId">User's Card ID</param>
+        public void UnauthenticateUser(string cardId)
+        {
+            authenticatedUsers.Remove(cardId);
         }
 
         private struct UserSession

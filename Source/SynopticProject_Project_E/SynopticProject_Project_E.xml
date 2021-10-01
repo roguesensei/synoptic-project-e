@@ -29,24 +29,30 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="T:SynopticProject_Project_E.Controllers.AuthorizationController">
+        <member name="T:SynopticProject_Project_E.Controllers.AuthenticateController">
             <summary>
             Authorization Controller
             </summary>
         </member>
-        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Login(SynopticProject_Project_E.Models.UserCredentialModel)">
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Login(SynopticProject_Project_E.Models.UserCredentialModel)">
             <summary>
             /Authenticate/Login/ endpoint
             </summary>
             <param name="model">User credentials</param>
             <returns>Response from server</returns>
         </member>
-        <member name="M:SynopticProject_Project_E.Controllers.AuthorizationController.Register(SynopticProject_Project_E.Models.UserUploadModel)">
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Register(SynopticProject_Project_E.Models.UserUploadModel)">
             <summary>
             /Authenticate/Register/ endpoint
             </summary>
             <param name="user">User details</param>
             <returns>Response from server</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.AuthenticateController.Logout">
+            <summary>
+            /Authenticate/Logout endpoint
+            </summary>
+            <returns>Response from the server</returns>
         </member>
         <member name="T:SynopticProject_Project_E.Controllers.BaseController">
             <summary>
@@ -91,6 +97,12 @@
             <param name="user">User to check</param>
             <returns>Expired or not</returns>
         </member>
+        <member name="M:SynopticProject_Project_E.Controllers.BaseController.UnauthenticateUser(System.String)">
+            <summary>
+            Unauthenticate a user
+            </summary>
+            <param name="cardId">User's Card ID</param>
+        </member>
         <member name="T:SynopticProject_Project_E.Controllers.UserController">
             <summary>
             User management controller
@@ -98,10 +110,17 @@
         </member>
         <member name="M:SynopticProject_Project_E.Controllers.UserController.Get(System.String)">
             <summary>
-            Get a user by Card ID
+            /User/ endpoint
             </summary>
             <param name="cardId">Card ID</param>
             <returns>User object or null</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.UserController.CreateAdminUser(SynopticProject_Project_E.Models.UserUploadModel)">
+            <summary>
+            /User/CreateAdmin
+            </summary>
+            <param name="model">Admin details</param>
+            <returns>Response from the server</returns>
         </member>
         <member name="T:SynopticProject_Project_E.DAL.UserDAL">
             <summary>

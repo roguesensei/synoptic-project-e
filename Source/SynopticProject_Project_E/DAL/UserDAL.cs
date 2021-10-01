@@ -97,6 +97,7 @@ namespace SynopticProject_Project_E.DAL
                     .GetCollection<User>(collectionName)
                     .InsertOne(new User
                     {
+                        _id = Guid.NewGuid(),
                         CardId = EncryptionHelper.Encrypt(user.CardId, cardId, privateKey),
                         PIN = EncryptionHelper.Encrypt(user.PIN, cardId, privateKey),
                         EmployeeId = user.EmployeeId,

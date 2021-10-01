@@ -9,6 +9,10 @@
     <OutputPath></OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\chris\Work\QA\Synoptic Project\synoptic-project-e\Source\SynopticProject_Project_E\SynopticProject_Project_E.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
   </ItemGroup>

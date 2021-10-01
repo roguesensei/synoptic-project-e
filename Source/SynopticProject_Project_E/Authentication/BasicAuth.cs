@@ -61,7 +61,7 @@ namespace SynopticProject_Project_E.Authentication
         /// <param name="context"></param>
         private void SetUnauthorized(AuthorizationFilterContext context)
         {
-            context.Result = StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "User unauthorized or not found. Please register.");
+            context.Result = StatusResponseGenerator.Generate(HttpStatusResponse.HttpUnauthorized, "User unauthorized or not found. Please log in or register.");
         }
     }
 }
