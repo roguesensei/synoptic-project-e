@@ -110,10 +110,17 @@
         </member>
         <member name="M:SynopticProject_Project_E.Controllers.UserController.Get(System.String)">
             <summary>
-            Get a user by Card ID
+            /User/ endpoint
             </summary>
             <param name="cardId">Card ID</param>
             <returns>User object or null</returns>
+        </member>
+        <member name="M:SynopticProject_Project_E.Controllers.UserController.CreateAdminUser(SynopticProject_Project_E.Models.UserUploadModel)">
+            <summary>
+            /User/CreateAdmin
+            </summary>
+            <param name="model">Admin details</param>
+            <returns>Response from the server</returns>
         </member>
         <member name="T:SynopticProject_Project_E.DAL.UserDAL">
             <summary>

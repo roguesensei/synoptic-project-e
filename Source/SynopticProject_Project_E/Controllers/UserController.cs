@@ -61,6 +61,11 @@ namespace SynopticProject_Project_E.Controllers
         [Route("CreateAdmin")]
         public JsonResult CreateAdminUser([FromBody] UserUploadModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return StatusResponseGenerator.Generate(HttpStatusResponse.HttpBadRequest, "Invalid user details");
+            }
+
             if (UserAuthenticated(GetCurrentUser()))
             {
                 if (UserSessionExpired(GetCurrentUser()))
@@ -70,7 +75,7 @@ namespace SynopticProject_Project_E.Controllers
 
                 if (GetCurrentUser().IsAdmin)
                 {
-                    if (UserDAL.GetUser(model.CardId) != null)
+                    if (UserDAL.GetUser(model.CardId) == null)
                     {
                         return UserDAL.CreateUser(model, true) ?
                             StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk) :
