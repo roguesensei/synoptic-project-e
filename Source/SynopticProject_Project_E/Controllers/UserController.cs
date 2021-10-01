@@ -104,6 +104,5 @@ namespace SynopticProject_Project_E.Controllers
 
         //    return StatusResponseGenerator.Generate(HttpStatusResponse.HttpOk, token.ToBase64());
         //}
-
     }
 }
